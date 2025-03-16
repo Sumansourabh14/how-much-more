@@ -1,5 +1,6 @@
 "use client";
 
+import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/lib/supabase";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -68,9 +69,15 @@ const ItemDetails = () => {
           {data && (
             <div>
               <h3>{data.item_name}</h3>
-              <p>{data.item_price}</p>
-              <p>{data.user_price}</p>
+
               <p>{calculateDifference(data.item_price, data.user_price)}</p>
+              <div>
+                <Progress value={data.user_price} max={data.item_price} />
+                <div className="flex justify-between">
+                  <p>{data.item_price}</p>
+                  <p>{data.user_price}</p>
+                </div>
+              </div>
             </div>
           )}
         </div>
