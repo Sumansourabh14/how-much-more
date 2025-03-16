@@ -13,10 +13,17 @@ export function Navbar() {
 
         <nav className="flex items-center space-x-6">
           <Link
+            href="/items"
+            className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+          >
+            My Goals
+          </Link>
+
+          <Link
             href="/item/upload"
             className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
           >
-            Upload Item
+            Add Goal
           </Link>
 
           <div className="flex items-center space-x-2">
