@@ -7,8 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/lib/supabase";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -17,6 +17,7 @@ interface Item {
   item_name: string;
   item_price: number;
   user_price: number;
+  image_url: string;
 }
 
 const Items = () => {
@@ -37,7 +38,7 @@ const Items = () => {
   }, []);
 
   return (
-    <div>
+    <div className="max-w-[1400px] mx-auto min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <h1>Items</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {items.map((item) => (
@@ -45,7 +46,16 @@ const Items = () => {
             <Card>
               <CardHeader>
                 <CardTitle>{item.item_name}</CardTitle>
-                <CardDescription></CardDescription>
+                <CardDescription>
+                  {item.image_url && (
+                    <Image
+                      src={item.image_url}
+                      alt={item.item_name}
+                      width={100}
+                      height={100}
+                    />
+                  )}
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <p>{item.item_price}</p>

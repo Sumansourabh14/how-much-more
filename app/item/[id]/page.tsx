@@ -2,6 +2,7 @@
 
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/lib/supabase";
+import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -10,6 +11,7 @@ interface Data {
   item_name: string;
   item_price: number;
   user_price: number;
+  image_url: string;
 }
 
 const ItemDetails = () => {
@@ -64,11 +66,19 @@ const ItemDetails = () => {
   return (
     <div className=" min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <div>
-        <h1>How much more?</h1>
         <div className="max-w-[800px] mx-auto">
           {data && (
             <div>
-              <h3>{data.item_name}</h3>
+              <h1>{data.item_name}</h1>
+
+              {data.image_url && (
+                <Image
+                  src={data.image_url}
+                  alt={data.item_name}
+                  width={100}
+                  height={100}
+                />
+              )}
 
               <p>{calculateDifference(data.item_price, data.user_price)}</p>
               <div>
