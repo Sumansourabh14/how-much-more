@@ -38,6 +38,14 @@ export function Navbar() {
         </div>
 
         <nav className="flex items-center space-x-6">
+          {session && (
+            <Link
+              href="/dashboard"
+              className="text-sm font-medium text-gray-700 hover:text-black transition-colors"
+            >
+              Dashboard
+            </Link>
+          )}
           <Link
             href="/items"
             className="text-sm font-medium text-gray-700 hover:text-black transition-colors"

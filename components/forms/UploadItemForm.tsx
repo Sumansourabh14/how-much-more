@@ -8,6 +8,13 @@ import { supabase } from "@/lib/supabase";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
 import Image from "next/image";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 interface ErrorWithMessage {
   message: string;
@@ -26,6 +33,7 @@ const UploadItemForm = () => {
   const [itemName, setItemName] = useState("");
   const [itemPrice, setItemPrice] = useState("");
   const [price, setPrice] = useState("");
+  const [currency, setCurrency] = useState("USD");
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -66,6 +74,7 @@ const UploadItemForm = () => {
         item_name: itemName,
         item_price: itemPrice,
         user_price: price,
+        currency: currency,
         image_url: imageUrl,
       };
 
@@ -81,6 +90,7 @@ const UploadItemForm = () => {
         setItemName("");
         setItemPrice("");
         setPrice("");
+        setCurrency("USD");
         setImage(null);
         setImagePreview(null);
       }
@@ -112,53 +122,88 @@ const UploadItemForm = () => {
   };
 
   return (
-    <form onSubmit={uploadToSupabase}>
-      <div className="space-y-4">
-        <div>
-          <Label htmlFor="name">Name</Label>
+    <form
+      onSubmit={uploadToSupabase}
+      className="bg-white p-6 rounded-lg shadow-sm"
+    >
+      <div className="space-y-6">
+        <div className="space-y-2">
+          <Label htmlFor="name" className="text-sm font-medium">
+            Name
+          </Label>
           <Input
             type="text"
             id="name"
             value={itemName}
             onChange={(e) => setItemName(e.target.value)}
             required
+            className="w-full"
+            placeholder="Enter item name"
           />
         </div>
-        <div>
-          <Label htmlFor="itemPrice">Item price</Label>
+        <div className="space-y-2">
+          <Label htmlFor="itemPrice" className="text-sm font-medium">
+            Item price
+          </Label>
           <Input
             type="number"
             id="itemPrice"
             value={itemPrice}
             onChange={(e) => setItemPrice(e.target.value)}
             required
+            className="w-full"
+            placeholder="Enter original price"
           />
         </div>
-        <div>
-          <Label htmlFor="price">User price</Label>
+        <div className="space-y-2">
+          <Label htmlFor="price" className="text-sm font-medium">
+            Your price
+          </Label>
           <Input
             type="number"
             id="price"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             required
+            className="w-full"
+            placeholder="Enter your asking price"
           />
         </div>
-        <div>
-          <Label htmlFor="image">Item Image</Label>
+        <div className="space-y-2">
+          <Label htmlFor="currency" className="text-sm font-medium">
+            Currency
+          </Label>
+          <Select value={currency} onValueChange={setCurrency}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select currency" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="USD">USD ($)</SelectItem>
+              <SelectItem value="EUR">EUR (€)</SelectItem>
+              <SelectItem value="GBP">GBP (£)</SelectItem>
+              <SelectItem value="JPY">JPY (¥)</SelectItem>
+              <SelectItem value="CAD">CAD (C$)</SelectItem>
+              <SelectItem value="INR">INR (₹)</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="image" className="text-sm font-medium">
+            Item Image
+          </Label>
           <Input
             type="file"
             id="image"
             accept="image/*"
             onChange={handleImageChange}
-            className="cursor-pointer"
+            className="cursor-pointer w-full"
           />
         </div>
 
         {imagePreview && (
-          <div className="mt-4">
-            <Label>Image Preview</Label>
-            <div className="relative h-48 w-48 mt-2 border rounded overflow-hidden">
+          <div className="space-y-2">
+            <Label className="text-sm font-medium">Image Preview</Label>
+            <div className="relative h-48 w-full mt-2 border rounded-lg overflow-hidden">
               <Image
                 src={imagePreview}
                 alt="Preview"
@@ -169,8 +214,13 @@ const UploadItemForm = () => {
           </div>
         )}
 
-        <div>
-          <Button type="submit" variant={"default"} disabled={uploading}>
+        <div className="pt-4">
+          <Button
+            type="submit"
+            variant={"default"}
+            disabled={uploading}
+            className="w-full"
+          >
             {uploading ? "Uploading..." : "Submit"}
           </Button>
         </div>
