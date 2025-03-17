@@ -18,6 +18,18 @@ interface Item {
   currency: string;
 }
 
+const getCurrencySymbol = (currency: string) => {
+  const symbols: { [key: string]: string } = {
+    USD: "$",
+    EUR: "€",
+    GBP: "£",
+    JPY: "¥",
+    CAD: "C$",
+    INR: "₹",
+  };
+  return symbols[currency] || currency;
+};
+
 const Items = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -92,11 +104,15 @@ const Items = () => {
                       <span className="text-sm text-gray-500">
                         Destination:
                       </span>
-                      <span className="font-medium">{item.item_price}</span>
+                      <span className="font-medium">
+                        {getCurrencySymbol(item.currency)}
+                        {item.item_price}
+                      </span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-500">Current:</span>
                       <span className="font-medium text-green-600">
+                        {getCurrencySymbol(item.currency)}
                         {item.user_price}
                       </span>
                     </div>
@@ -115,7 +131,9 @@ const Items = () => {
                       >
                         {item.user_price >= item.item_price
                           ? "✓"
-                          : item.item_price - item.user_price}
+                          : `${getCurrencySymbol(item.currency)}${
+                              item.item_price - item.user_price
+                            }`}
                       </span>
                     </div>
                   </div>
