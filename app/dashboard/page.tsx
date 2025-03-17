@@ -2,21 +2,16 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ProtectedRoute from "@/components/ProtectedRoute";
 
 export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
-  const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
       setIsLoading(true);
-      const { data } = await supabase.auth.getSession();
-
-      // Use nullish coalescing to handle undefined email
-      setUserEmail(data.session?.user.email ?? null);
+      await supabase.auth.getSession();
       setIsLoading(false);
     };
 
@@ -35,35 +30,44 @@ export default function Dashboard() {
 
   return (
     <ProtectedRoute>
-      <div className="container mx-auto py-20">
-        <div className="max-w-3xl mx-auto space-y-8">
+      <div className="container mx-auto py-10">
+        <div className="max-w-5xl mx-auto space-y-8">
           <div className="text-center">
-            <h1 className="text-3xl font-bold">Welcome to Your Dashboard</h1>
-            <p className="mt-2 text-gray-600">
-              {userEmail ? `Logged in as ${userEmail}` : "Welcome back!"}
-            </p>
+            <h1 className="text-3xl font-bold">Dashboard</h1>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-lg border shadow-sm">
-              <h2 className="text-xl font-semibold mb-4">Your Goals</h2>
-              <p className="text-gray-600 mb-4">
-                Track and manage your savings goals
-              </p>
-              <Button asChild>
-                <Link href="/items">View Your Goals</Link>
-              </Button>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Link href="/items" className="block">
+              <div className="relative bg-white rounded-lg border shadow-sm min-h-[400px] flex items-center justify-center overflow-hidden group">
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
+                  style={{
+                    backgroundImage:
+                      'url("https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=2070")',
+                  }}
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300" />
+                <h2 className="relative text-5xl font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-300">
+                  My Goals
+                </h2>
+              </div>
+            </Link>
 
-            <div className="bg-white p-6 rounded-lg border shadow-sm">
-              <h2 className="text-xl font-semibold mb-4">Add New Goal</h2>
-              <p className="text-gray-600 mb-4">
-                Create a new savings goal to track
-              </p>
-              <Button asChild>
-                <Link href="/item/upload">Add New Goal</Link>
-              </Button>
-            </div>
+            <Link href="/item/upload" className="block">
+              <div className="relative bg-white rounded-lg border shadow-sm min-h-[400px] flex items-center justify-center overflow-hidden group">
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-300 group-hover:scale-110"
+                  style={{
+                    backgroundImage:
+                      'url("https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070")',
+                  }}
+                />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300" />
+                <h2 className="relative text-5xl font-bold text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-300">
+                  Add New Goal
+                </h2>
+              </div>
+            </Link>
           </div>
         </div>
       </div>
