@@ -2,6 +2,7 @@
 
 import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/lib/supabase";
+import { getCurrencySymbol } from "@/utils/functions";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -12,6 +13,7 @@ interface Data {
   item_price: number;
   user_price: number;
   image_url: string;
+  currency: string;
 }
 
 const ItemDetails = () => {
@@ -105,20 +107,23 @@ const ItemDetails = () => {
                     <div className="flex items-center justify-between">
                       <span className="text-base">Target Price</span>
                       <span className="text-xl font-bold">
-                        ${data.item_price}
+                        {getCurrencySymbol(data.currency)}
+                        {data.item_price}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-base">Current Savings</span>
+                      <span className="text-base">Current</span>
                       <span className="text-xl font-bold text-green-600">
-                        ${data.user_price}
+                        {getCurrencySymbol(data.currency)}
+                        {data.user_price}
                       </span>
                     </div>
 
                     {calculateDifference(data.item_price, data.user_price) && (
                       <div className="p-4 rounded-lg border-2 border-blue-200">
                         <p className="text-base text-blue-700 font-medium">
+                          {getCurrencySymbol(data.currency)}
                           {calculateDifference(
                             data.item_price,
                             data.user_price
