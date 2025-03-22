@@ -122,14 +122,11 @@ const UploadItemForm = () => {
   };
 
   return (
-    <form
-      onSubmit={uploadToSupabase}
-      className="bg-white p-6 rounded-lg shadow-sm"
-    >
+    <form onSubmit={uploadToSupabase} className="bg-white p-6 rounded-lg">
       <div className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="name" className="text-sm font-medium">
-            Name
+            Goal Name
           </Label>
           <Input
             type="text"
@@ -138,12 +135,12 @@ const UploadItemForm = () => {
             onChange={(e) => setItemName(e.target.value)}
             required
             className="w-full"
-            placeholder="Enter item name"
+            placeholder="Enter goal name"
           />
         </div>
         <div className="space-y-2">
           <Label htmlFor="itemPrice" className="text-sm font-medium">
-            Item price
+            Goal Price
           </Label>
           <Input
             type="number"
@@ -152,12 +149,12 @@ const UploadItemForm = () => {
             onChange={(e) => setItemPrice(e.target.value)}
             required
             className="w-full"
-            placeholder="Enter original price"
+            placeholder="Enter goal price"
           />
         </div>
         <div className="space-y-2">
           <Label htmlFor="price" className="text-sm font-medium">
-            Your price
+            Current Savings
           </Label>
           <Input
             type="number"
@@ -166,7 +163,7 @@ const UploadItemForm = () => {
             onChange={(e) => setPrice(e.target.value)}
             required
             className="w-full"
-            placeholder="Enter your asking price"
+            placeholder="Enter your current savings"
           />
         </div>
         <div className="space-y-2">
@@ -189,7 +186,7 @@ const UploadItemForm = () => {
         </div>
         <div className="space-y-2">
           <Label htmlFor="image" className="text-sm font-medium">
-            Item Image
+            Goal Image
           </Label>
           <Input
             type="file"

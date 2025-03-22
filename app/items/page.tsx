@@ -57,16 +57,16 @@ const Items = () => {
       <div className="max-w-[1400px] mx-auto min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
         <div className="space-y-8">
           <div className="flex flex-col gap-4">
-            <h1 className="text-4xl font-bold tracking-tight">Items</h1>
+            <h1 className="text-4xl font-bold tracking-tight">Goals</h1>
             <p className="text-muted-foreground">
-              Browse and manage your items
+              Browse and manage your financial goals
             </p>
           </div>
 
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
-              placeholder="Search items..."
+              placeholder="Search financial goals..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="pl-10"
@@ -102,7 +102,7 @@ const Items = () => {
                   <div className="flex flex-col gap-2">
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-gray-500">
-                        Destination:
+                        Final price:
                       </span>
                       <span className="font-medium">
                         {getCurrencySymbol(item.currency)}
@@ -120,7 +120,7 @@ const Items = () => {
                       <span className="text-sm text-gray-500">
                         {item.user_price >= item.item_price
                           ? "Achieved!"
-                          : "Distance left:"}
+                          : "Money left to achieve goal:"}
                       </span>
                       <span
                         className={`font-medium ${

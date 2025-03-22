@@ -10,11 +10,10 @@ const UploadItem = () => {
       <div className="py-8">
         <div className="max-w-[500px] mx-auto">
           <h1 className="text-2xl font-semibold text-center mb-2">
-            Share Your Item
+            Share Your Financial Goal
           </h1>
           <p className="text-gray-600 text-center mb-8">
-            Upload your item details and let others know what you're looking to
-            trade or sell.
+            Upload your financial goal details
           </p>
           <UploadItemForm />
         </div>
