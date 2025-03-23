@@ -47,10 +47,10 @@ export function Footer() {
             <h3 className="text-lg font-semibold mb-4">Connect</h3>
             <div className="flex space-x-4">
               <a
-                href="#"
+                href="https://x.com/how_much_more_"
                 className="text-gray-600 hover:text-black transition-colors"
               >
-                <span className="sr-only">Twitter</span>
+                <span className="sr-only">Twitter/X</span>
                 <svg
                   className="h-6 w-6"
                   fill="currentColor"
@@ -61,7 +61,7 @@ export function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://github.com/Sumansourabh14/how-much-more"
                 className="text-gray-600 hover:text-black transition-colors"
               >
                 <span className="sr-only">GitHub</span>
