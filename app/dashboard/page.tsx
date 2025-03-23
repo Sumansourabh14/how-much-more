@@ -45,9 +45,9 @@ export default function Dashboard() {
   const achievedItems = items.filter(
     (item) => item.user_price >= item.item_price
   ).length;
-  const totalGoal = items.reduce((sum, item) => sum + item.item_price, 0);
-  const totalCurrent = items.reduce((sum, item) => sum + item.user_price, 0);
-  const totalRemaining = totalGoal - totalCurrent;
+  // const totalGoal = items.reduce((sum, item) => sum + item.item_price, 0);
+  // const totalCurrent = items.reduce((sum, item) => sum + item.user_price, 0);
+  // const totalRemaining = totalGoal - totalCurrent;
 
   if (isLoading) {
     return (
