@@ -40,23 +40,23 @@ export default function Login() {
     }
   };
 
-  const handleGoogleLogin = async () => {
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          redirectTo: `${window.location.origin}/items`,
-        },
-      });
+  // const handleGoogleLogin = async () => {
+  //   try {
+  //     const { error } = await supabase.auth.signInWithOAuth({
+  //       provider: "google",
+  //       options: {
+  //         redirectTo: `${window.location.origin}/items`,
+  //       },
+  //     });
 
-      if (error) {
-        toast.error(error.message);
-      }
-    } catch (error) {
-      console.error("Error during Google login:", error);
-      toast.error("An unexpected error occurred");
-    }
-  };
+  //     if (error) {
+  //       toast.error(error.message);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error during Google login:", error);
+  //     toast.error("An unexpected error occurred");
+  //   }
+  // };
 
   return (
     <div className="container mx-auto max-w-md py-20">
@@ -68,7 +68,7 @@ export default function Login() {
           </p>
         </div>
 
-        <Button
+        {/* <Button
           className="w-full flex items-center justify-center gap-2"
           variant="outline"
           onClick={handleGoogleLogin}
@@ -98,7 +98,7 @@ export default function Login() {
             />
           </svg>
           Continue with Google
-        </Button>
+        </Button> */}
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">

@@ -37,7 +37,7 @@ export default function SignUp() {
         </div>
 
         <div className="space-y-4">
-          <Button
+          {/* <Button
             className="w-full flex items-center justify-center gap-2"
             variant="outline"
             asChild
@@ -69,7 +69,7 @@ export default function SignUp() {
               </svg>
               Continue with Google
             </Link>
-          </Button>
+          </Button> */}
 
           <Button className="w-full" asChild>
             <Link href="/signup/email">Continue with Email</Link>
