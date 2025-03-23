@@ -4,9 +4,11 @@ import { Progress } from "@/components/ui/progress";
 import { supabase } from "@/lib/supabase";
 import { getCurrencySymbol } from "@/utils/functions";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Pencil } from "lucide-react";
 
 interface Data {
   item_name: string;
@@ -18,7 +20,7 @@ interface Data {
 
 const ItemDetails = () => {
   const [data, setData] = useState<Data | null>(null);
-
+  const router = useRouter();
   const { id } = useParams();
 
   useEffect(() => {
@@ -101,7 +103,18 @@ const ItemDetails = () => {
                   </div>
                 )}
                 <div className="flex-1 space-y-6">
-                  <h1 className="text-2xl font-bold">{data.item_name}</h1>
+                  <div className="flex justify-between items-start">
+                    <h1 className="text-2xl font-bold">{data.item_name}</h1>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => router.push(`/item/${id}/edit`)}
+                      className="flex items-center gap-2"
+                    >
+                      <Pencil className="h-4 w-4" />
+                      Edit
+                    </Button>
+                  </div>
 
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
