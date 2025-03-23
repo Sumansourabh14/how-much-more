@@ -18,6 +18,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useAuth } from "@/services/AuthContext";
 
 interface Data {
   item_name: string;
@@ -25,6 +26,7 @@ interface Data {
   user_price: number;
   image_url: string;
   currency: string;
+  user_id: string;
 }
 
 const ItemDetails = () => {
@@ -33,6 +35,7 @@ const ItemDetails = () => {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const router = useRouter();
   const { id } = useParams();
+  const { session } = useAuth();
 
   useEffect(() => {
     let mounted = true;
@@ -139,59 +142,61 @@ const ItemDetails = () => {
                 <div className="flex-1 space-y-6">
                   <div className="flex justify-between items-start">
                     <h1 className="text-2xl font-bold">{data.item_name}</h1>
-                    <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => router.push(`/item/${id}/edit`)}
-                        className="flex items-center gap-2 cursor-pointer"
-                      >
-                        <Pencil className="h-4 w-4" />
-                        Edit
-                      </Button>
-                      <Dialog
-                        open={isDeleteDialogOpen}
-                        onOpenChange={setIsDeleteDialogOpen}
-                      >
-                        <DialogTrigger asChild>
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            className="flex items-center gap-2 cursor-pointer"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                            Delete
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Delete Goal</DialogTitle>
-                            <DialogDescription>
-                              Are you sure you want to delete this goal? This
-                              action cannot be undone.
-                            </DialogDescription>
-                          </DialogHeader>
-                          <DialogFooter>
-                            <Button
-                              variant="outline"
-                              onClick={() => setIsDeleteDialogOpen(false)}
-                              disabled={isDeleting}
-                              className="cursor-pointer"
-                            >
-                              Cancel
-                            </Button>
+                    {data.user_id === session?.user.id && (
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => router.push(`/item/${id}/edit`)}
+                          className="flex items-center gap-2 cursor-pointer"
+                        >
+                          <Pencil className="h-4 w-4" />
+                          Edit
+                        </Button>
+                        <Dialog
+                          open={isDeleteDialogOpen}
+                          onOpenChange={setIsDeleteDialogOpen}
+                        >
+                          <DialogTrigger asChild>
                             <Button
                               variant="destructive"
-                              onClick={handleDelete}
-                              disabled={isDeleting}
-                              className="cursor-pointer"
+                              size="sm"
+                              className="flex items-center gap-2 cursor-pointer"
                             >
-                              {isDeleting ? "Deleting..." : "Delete"}
+                              <Trash2 className="h-4 w-4" />
+                              Delete
                             </Button>
-                          </DialogFooter>
-                        </DialogContent>
-                      </Dialog>
-                    </div>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle>Delete Goal</DialogTitle>
+                              <DialogDescription>
+                                Are you sure you want to delete this goal? This
+                                action cannot be undone.
+                              </DialogDescription>
+                            </DialogHeader>
+                            <DialogFooter>
+                              <Button
+                                variant="outline"
+                                onClick={() => setIsDeleteDialogOpen(false)}
+                                disabled={isDeleting}
+                                className="cursor-pointer"
+                              >
+                                Cancel
+                              </Button>
+                              <Button
+                                variant="destructive"
+                                onClick={handleDelete}
+                                disabled={isDeleting}
+                                className="cursor-pointer"
+                              >
+                                {isDeleting ? "Deleting..." : "Delete"}
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
+                    )}
                   </div>
 
                   <div className="space-y-4">
@@ -233,7 +238,8 @@ const ItemDetails = () => {
                     <div className="flex justify-between text-sm">
                       <span>Progress</span>
                       <span>
-                        {Math.round((data.user_price / data.item_price) * 100)}%
+                        {((data.user_price / data.item_price) * 100).toFixed(2)}
+                        %
                       </span>
                     </div>
                     <p className="text-base font-medium text-center mt-2">

@@ -5,6 +5,7 @@ import Link from "next/link";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useAuth } from "@/services/AuthContext";
 
 interface Item {
   id: number;
@@ -18,10 +19,14 @@ interface Item {
 export default function Dashboard() {
   const [items, setItems] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { session } = useAuth();
 
   useEffect(() => {
     const fetchItems = async () => {
-      const { data, error } = await supabase.from("items").select("*");
+      const { data, error } = await supabase
+        .from("items")
+        .select("*")
+        .eq("user_id", session?.user.id);
 
       if (error) {
         console.error("Error fetching items:", error);
@@ -31,8 +36,10 @@ export default function Dashboard() {
       setIsLoading(false);
     };
 
-    fetchItems();
-  }, []);
+    if (session) {
+      fetchItems();
+    }
+  }, [session]);
 
   const totalItems = items.length;
   const achievedItems = items.filter(

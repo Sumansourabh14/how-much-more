@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { useAuth } from "@/services/AuthContext";
 
 interface ErrorWithMessage {
   message: string;
@@ -37,6 +38,7 @@ const UploadItemForm = () => {
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const { session } = useAuth();
 
   const uploadToSupabase = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -76,6 +78,7 @@ const UploadItemForm = () => {
         user_price: price,
         currency: currency,
         image_url: imageUrl,
+        user_id: session?.user.id,
       };
 
       const { error, status } = await supabase.from("items").insert(payload);
