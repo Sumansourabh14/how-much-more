@@ -65,11 +65,11 @@ export default function Dashboard() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Card>
               <CardHeader className="p-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Items
+                  Total Goals
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-3 pt-0">
@@ -79,7 +79,7 @@ export default function Dashboard() {
             <Card>
               <CardHeader className="p-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Achieved
+                  Goals Achieved
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-3 pt-0">
@@ -88,10 +88,10 @@ export default function Dashboard() {
                 </div>
               </CardContent>
             </Card>
-            <Card>
+            {/* <Card>
               <CardHeader className="p-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Total Goal
+                  Total Goals Amount
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-3 pt-0">
@@ -99,11 +99,11 @@ export default function Dashboard() {
                   ₹{totalGoal.toLocaleString()}
                 </div>
               </CardContent>
-            </Card>
-            <Card>
+            </Card> */}
+            {/* <Card>
               <CardHeader className="p-3">
                 <CardTitle className="text-sm font-medium text-muted-foreground">
-                  Remaining
+                  How much more?
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-3 pt-0">
@@ -111,7 +111,7 @@ export default function Dashboard() {
                   ₹{totalRemaining.toLocaleString()}
                 </div>
               </CardContent>
-            </Card>
+            </Card> */}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
